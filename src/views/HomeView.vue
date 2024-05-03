@@ -12,13 +12,6 @@ const metrics = ref<MetricProps[]>(
     count: Math.floor(Math.random() * 100000)
   }))
 )
-
-const toast = useToast()
-toast.toast({
-  title: '새로운 토스트 메시지',
-  description: '토스트 메시지 내용',
-  variant: 'destructive'
-})
 </script>
 
 <template>
@@ -32,7 +25,7 @@ toast.toast({
           <div class="flex flex-col justify-center space-y-4">
             <div class="space-y-2">
               <div class="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
-                Travel Recommendations
+                Travel Recommendation
               </div>
               <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
                 Discover Your Next Adventure
@@ -52,7 +45,7 @@ toast.toast({
                 View Recommendations
               </a>
               <a
-                class="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+                class="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
                 href="#"
               >
                 Explore Destinations
@@ -83,7 +76,7 @@ toast.toast({
               Check out our latest travel statistics.
             </p>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <MetricCard
               v-for="(metric, index) in metrics"
               :key="index"
