@@ -1,9 +1,32 @@
+<script setup lang="ts">
+import { RouterLink, useRoute } from 'vue-router'
+const route = useRoute()
+const ROUTES = [
+  {
+    path: 'boards',
+    name: '게시판'
+  },
+  {
+    path: 'path',
+    name: '경로추천'
+  },
+  {
+    path: 'trip',
+    name: '여행지 추천'
+  },
+  {
+    path: 'blog',
+    name: '블로그'
+  }
+]
+</script>
+
 <template>
   <header
     class="flex items-center justify-between bg-white px-4 py-3 shadow-sm dark:bg-gray-900 sm:px-6 lg:px-8"
   >
     <div class="flex items-center">
-      <a class="flex items-center" href="#">
+      <RouterLink :to="{ name: 'home' }" class="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -21,34 +44,17 @@
           ></path>
         </svg>
         <span class="ml-2 text-lg font-bold text-gray-900 dark:text-gray-100">EnjoyTrip</span>
-      </a>
+      </RouterLink>
     </div>
     <div class="flex items-center space-x-4">
       <nav class="hidden space-x-4 md:flex">
-        <a
+        <RouterLink
+          v-for="(route, index) in ROUTES"
+          :key="index"
+          :to="{ name: route.path }"
           class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-          href="#"
+          >{{ route.name }}</RouterLink
         >
-          게시판
-        </a>
-        <a
-          class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-          href="#"
-        >
-          경로 추천
-        </a>
-        <a
-          class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-          href="#"
-        >
-          여행지 추천
-        </a>
-        <a
-          class="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-          href="#"
-        >
-          Blog
-        </a>
       </nav>
       <button
         class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
@@ -67,5 +73,3 @@
     </div>
   </header>
 </template>
-
-<script setup lang="ts"></script>

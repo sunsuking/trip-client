@@ -1,48 +1,24 @@
 <script setup lang="ts">
-import MetricsCard from '@/components/card/MetricsCard.vue'
+import MetricCard from '@/components/card/MetricCard.vue'
+import PostingCard from '@/components/card/PostingCard.vue'
+import TripCard from '@/components/card/TripCard.vue'
+import { useToast } from '@/components/ui/toast'
+import type { MetricProps } from '@/types/trip.type'
 import { ref } from 'vue'
-const metrics = ref<{ name: string; count: number }[]>([
-  {
+
+const metrics = ref<MetricProps[]>(
+  [1, 2, 3, 4, 5, 6, 7, 8].map(() => ({
     name: 'Accommodations',
-    count: 5678
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  },
-  {
-    name: 'Travelers',
-    count: 12312
-  }
-])
+    count: Math.floor(Math.random() * 100000)
+  }))
+)
+
+const toast = useToast()
+toast.toast({
+  title: '새로운 토스트 메시지',
+  description: '토스트 메시지 내용',
+  variant: 'destructive'
+})
 </script>
 
 <template>
@@ -108,22 +84,23 @@ const metrics = ref<{ name: string; count: number }[]>([
             </p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <MetricsCard
+            <MetricCard
               v-for="(metric, index) in metrics"
               :key="index"
               v-bind:name="metric.name"
               v-bind:count="metric.count"
-            ></MetricsCard>
+            ></MetricCard>
           </div>
         </div>
       </div>
     </section>
-    <section class="w-full py-12 md:py-24 lg:py-32 flex justify-center">
+    <!-- 메인 화면 - 여행지 추천  -->
+    <section class="w-full py-6 md:py-12 lg:py-24 flex justify-center">
       <div class="container px-4 md:px-6">
         <div class="grid gap-6">
-          <div class="space-y-2 text-center">
+          <div class="space-y-2 text-center py-4">
             <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Popular Destinations
+              가장 인기있는 여행지
             </h2>
             <p
               class="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400"
@@ -131,166 +108,35 @@ const metrics = ref<{ name: string; count: number }[]>([
               Explore the most sought-after travel destinations around the world.
             </p>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div class="p-0">
-                <img
-                  src="https://generated.vusercontent.net/placeholder.svg"
-                  width="400"
-                  height="300"
-                  alt="Destination"
-                  class="aspect-[4/3] object-cover rounded-t-lg"
-                />
-              </div>
-              <div class="flex items-center p-4">
-                <div class="font-medium">Paris, France</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  The City of Light, known for its iconic landmarks, romantic atmosphere, and
-                  world-class cuisine.
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">Europe</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-yellow-500"
-                  >
-                    <polygon
-                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                    ></polygon>
-                  </svg>
-                  <span class="text-sm font-medium">4.8</span>
-                </div>
-              </div>
-            </div>
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div class="p-0">
-                <img
-                  src="https://generated.vusercontent.net/placeholder.svg"
-                  width="400"
-                  height="300"
-                  alt="Destination"
-                  class="aspect-[4/3] object-cover rounded-t-lg"
-                />
-              </div>
-              <div class="flex items-center p-4">
-                <div class="font-medium">Tokyo, Japan</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  The Neon Metropolis, a vibrant city that blends ancient traditions with
-                  cutting-edge technology.
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">Asia</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-yellow-500"
-                  >
-                    <polygon
-                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                    ></polygon>
-                  </svg>
-                  <span class="text-sm font-medium">4.6</span>
-                </div>
-              </div>
-            </div>
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div class="p-0">
-                <img
-                  src="https://generated.vusercontent.net/placeholder.svg"
-                  width="400"
-                  height="300"
-                  alt="Destination"
-                  class="aspect-[4/3] object-cover rounded-t-lg"
-                />
-              </div>
-              <div class="flex items-center p-4">
-                <div class="font-medium">Bali, Indonesia</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  The Island of the Gods, renowned for its stunning beaches, lush landscapes, and
-                  rich cultural heritage.
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">Asia</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-yellow-500"
-                  >
-                    <polygon
-                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-                    ></polygon>
-                  </svg>
-                  <span class="text-sm font-medium">4.9</span>
-                </div>
-              </div>
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <TripCard
+              :name="'Tokyo, Japan'"
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :description="'The Neon Metropolis, a vibrant city that blends ancient traditions with cutting-edge technology.'"
+              :rating="4"
+              :location="'Asia'"
+            ></TripCard>
+            <TripCard
+              :name="'Tokyo, Japan'"
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :description="'The Neon Metropolis, a vibrant city that blends asb ancient traditions with cutting-edge technology.'"
+              :rating="4"
+              :location="'Asia'"
+            ></TripCard>
+            <TripCard
+              :name="'Tokyo, Japan'"
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :description="'The Neon Metropolis, a vibrant city that blends ancient traditions with cutting-edge technology.'"
+              :rating="4"
+              :location="'Asia'"
+            ></TripCard>
+            <TripCard
+              :name="'Tokyo, Japan'"
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :description="'The Neon Metropolis, a vibrant city that blends ancient traditions with cutting-edge technology.'"
+              :rating="4"
+              :location="'Asia'"
+            ></TripCard>
           </div>
         </div>
       </div>
@@ -310,175 +156,38 @@ const metrics = ref<{ name: string; count: number }[]>([
               Read our latest travel insights and tips.
             </p>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div class="p-0">
-                <img
-                  src=".https://generated.vusercontent.net/placeholder.svg"
-                  width="400"
-                  height="300"
-                  alt="Blog Post"
-                  class="aspect-[4/3] object-cover rounded-t-lg"
-                />
-              </div>
-              <div class="flex items-center p-4">
-                <div class="font-medium">10 Must-Visit Destinations for Adventure Seekers</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  Explore the most thrilling and adrenaline-filled travel experiences, from hiking
-                  in the Andes to scuba diving in the Great Barrier Reef.
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M8 2v4"></path>
-                    <path d="M16 2v4"></path>
-                    <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                    <path d="M3 10h18"></path>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">May 1, 2024</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">2,345 views</span>
-                </div>
-              </div>
-            </div>
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div class="p-0">
-                <img
-                  src="https://generated.vusercontent.net/placeholder.svg"
-                  width="400"
-                  height="300"
-                  alt="Blog Post"
-                  class="aspect-[4/3] object-cover rounded-t-lg"
-                />
-              </div>
-              <div class="flex items-center p-4">
-                <div class="font-medium">The Ultimate Guide to Sustainable Travel</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  Learn how to minimize your environmental impact while exploring the world, from
-                  choosing eco-friendly accommodations to reducing your carbon footprint.
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M8 2v4"></path>
-                    <path d="M16 2v4"></path>
-                    <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                    <path d="M3 10h18"></path>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">April 15, 2024</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">1,789 views</span>
-                </div>
-              </div>
-            </div>
-            <div class="rounded-lg border bg-card text-card-foreground shadow-sm" data-v0-t="card">
-              <div class="p-0">
-                <img
-                  src="https://generated.vusercontent.net/placeholder.svg"
-                  width="400"
-                  height="300"
-                  alt="Blog Post"
-                  class="aspect-[4/3] object-cover rounded-t-lg"
-                />
-              </div>
-              <div class="flex items-center p-4">
-                <div class="font-medium">The Best Luxury Hotels for a Relaxing Getaway</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                  Indulge in the ultimate in comfort and pampering at these top-rated hotels, from
-                  private beach villas to mountain retreats with breathtaking views.
-                </div>
-                <div class="flex items-center gap-2 mt-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M8 2v4"></path>
-                    <path d="M16 2v4"></path>
-                    <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                    <path d="M3 10h18"></path>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">March 30, 2024</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                  >
-                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                  <span class="text-sm text-gray-500 dark:text-gray-400">3,456 views</span>
-                </div>
-              </div>
-            </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <PostingCard
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :name="'The Ultimate Guide to Sustainable Travel'"
+              :description="'Learn how to minimize your environmental impact while exploring the world, from choosing eco-friendly accommodations to reducing your carbon footprint.'"
+              :createdAt="new Date()"
+              :views="234"
+            ></PostingCard>
+            <PostingCard
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :name="'The Ultimate Guide to Sustainable Travel'"
+              :description="'Learn how to minimize your environmental impact while exploring the world, from choosing eco-friendly accommodations to reducing your carbon footprint.'"
+              :createdAt="new Date()"
+              :views="234"
+            ></PostingCard>
+            <PostingCard
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :name="'The Ultimate Guide to Sustainable Travel'"
+              :description="'Learn how to minimize your environmental impact while exploring the world, from choosing eco-friendly accommodations to reducing your carbon footprint.'"
+              :createdAt="new Date()"
+              :views="234"
+            ></PostingCard>
+            <PostingCard
+              :backgroundImage="'https://generated.vusercontent.net/placeholder.svg'"
+              :name="'The Ultimate Guide to Sustainable Travel'"
+              :description="'Learn how to minimize your environmental impact while exploring the world, from choosing eco-friendly accommodations to reducing your carbon footprint.'"
+              :createdAt="new Date()"
+              :views="234"
+            ></PostingCard>
           </div>
         </div>
       </div>
-    </section>
-    <section class="w-full py-12 md:py-24 lg:py-32">
-      <div class="container px-4 md:px-6"></div>
     </section>
   </main>
 </template>
