@@ -32,7 +32,7 @@ const { mutate } = useMutation({
   },
 });
 
-const hiddenRoute = ["sign-in", "sign-up"];
+const hiddenRoute = ["sign-in", "sign-up", "oauth2-redirect", "confirm-email"];
 
 const ROUTES: { pathname: string; name: string }[] = [
   {
@@ -84,7 +84,7 @@ const { isLogin, profile } = storeToRefs(authenticationStore);
             aria-expanded="false"
             data-state="closed"
           >
-            <Avatar v-if="profile.profileImage">
+            <Avatar class="w-8 h-8" v-if="profile.profileImage">
               <AvatarImage :src="profile.profileImage" :alt="profile.username" />
               <AvatarFallback>{{ profile.nickname }}</AvatarFallback>
             </Avatar>

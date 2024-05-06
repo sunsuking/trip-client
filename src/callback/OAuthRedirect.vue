@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useToast } from "@/components/ui/toast";
 import { useRoute, useRouter } from "vue-router";
+import CircularLoading from "@/components/common/CircularLoading.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -10,13 +11,17 @@ if (route.query.access_token) {
   sessionStorage.setItem("refreshToken", route.query.refresh_token as string);
   router.push({ name: "home" });
 } else {
+  const isNew: boolean = JSON.parse(route.query.isNew as string);
+
   toast.toast({
-    title: "로그인 실패",
+    title: isNew ? "회원가입 성공" : "로그인 실패",
     description: route.query.error as string,
     duration: 2000,
-    variant: "destructive",
+    variant: isNew ? undefined : "destructive",
   });
   router.push({ name: "sign-in" });
 }
 </script>
-<template></template>
+<template>
+  <CircularLoading />
+</template>

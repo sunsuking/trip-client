@@ -37,7 +37,12 @@ const router = createRouter({
     {
       path: "/oauth2/redirect",
       name: "oauth2-redirect",
-      component: () => import('@/views/OAuthRedirectView.vue')
+      component: () => import('@/callback/OAuthRedirect.vue')
+    },
+    {
+      path: "/confirm/email",
+      name: "confirm-email",
+      component: () => import('@/callback/ConfirmEmail.vue')
     }
   ]
 })
