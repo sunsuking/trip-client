@@ -1,17 +1,19 @@
 <script setup lang="ts">
-import MetricCard from '@/components/card/MetricCard.vue'
-import PostingCard from '@/components/card/PostingCard.vue'
-import TripCard from '@/components/card/TripCard.vue'
-import { useToast } from '@/components/ui/toast'
-import type { MetricProps } from '@/types/trip.type'
-import { ref } from 'vue'
+import { userDataRequest } from "@/api/user";
+import MetricCard from "@/components/card/MetricCard.vue";
+import PostingCard from "@/components/card/PostingCard.vue";
+import TripCard from "@/components/card/TripCard.vue";
+import { useToast } from "@/components/ui/toast";
+import type { MetricProps } from "@/types/trip.type";
+import { useQuery } from "@tanstack/vue-query";
+import { ref } from "vue";
 
 const metrics = ref<MetricProps[]>(
   [1, 2, 3, 4, 5, 6, 7, 8].map(() => ({
-    name: 'Accommodations',
-    count: Math.floor(Math.random() * 100000)
+    name: "Accommodations",
+    count: Math.floor(Math.random() * 100000),
   }))
-)
+);
 </script>
 
 <template>
@@ -24,7 +26,9 @@ const metrics = ref<MetricProps[]>(
         >
           <div class="flex flex-col justify-center space-y-4">
             <div class="space-y-2">
-              <div class="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
+              <div
+                class="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800"
+              >
                 Travel Recommendation
               </div>
               <h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -33,8 +37,8 @@ const metrics = ref<MetricProps[]>(
               <p
                 class="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400"
               >
-                Our team of travel experts curates the best destinations, hotels, and experiences
-                just for you.
+                Our team of travel experts curates the best destinations, hotels, and
+                experiences just for you.
               </p>
             </div>
             <div class="flex flex-col gap-2 min-[400px]:flex-row">
@@ -69,7 +73,9 @@ const metrics = ref<MetricProps[]>(
       <div class="container px-4 md:px-6">
         <div class="grid gap-6">
           <div class="space-y-2 text-center">
-            <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Key Metrics</h2>
+            <h2 class="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              Key Metrics
+            </h2>
             <p
               class="mx-auto max-w-[700px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 pb-4"
             >

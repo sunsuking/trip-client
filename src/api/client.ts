@@ -1,17 +1,32 @@
 import { useAuthenticationStore } from "@/stores/authentication";
-import axios from "axios";
-import { resolve } from "url";
+import type { JwtToken } from "@/types/auth.type";
+import axios, { type AxiosResponse } from "axios";
+import { storeToRefs } from "pinia";
+
+const BACKEND_URL = "http://localhost:8080" 
+const BASE_URL = `${BACKEND_URL}/api/v1`
+
+export const NAVER_LOGIN_URL = `${BACKEND_URL}/oauth2/authorization/naver`
+export const GOOGLE_LOGIN_URL = `${BACKEND_URL}/oauth2/authorization/google`
+export const KAKAO_LOGIN_URL = `${BACKEND_URL}/oauth2/authorization/kakao`
+export const GITHUB_LOGIN_URL = `${BACKEND_URL}/oauth2/authorization/github`
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_API_URI,
+  baseURL: BASE_URL,
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  }
 })
-
-const REFRESH_URI = `${process.env.VUE_APP_API_URI}/auth/refresh`
+const REFRESH_URI = `${BASE_URL}/auth/refresh`
 
 instance.interceptors.request.use((config) => {
   const authentication = useAuthenticationStore()
-  if (!authentication.isLogin) throw Error("인증 처리가 올바르지 않습니다. 다시 확인해주세요.")
-  config.headers["Authorization"] = `Bearer ${authentication.accessToken}`
+  const {isLogin, accessToken} = storeToRefs(authentication);
+  if (isLogin) {
+    config.headers["Authorization"] = `Bearer ${accessToken.value}`
+  }
   return config;
 }, (error) => {
   return Promise.reject(error)
@@ -34,19 +49,28 @@ instance.interceptors.response.use((response) => {
   } 
 
   try {
-    const { data: { accessToken: newAccessToken } } = await axios.post<{
-      accessToken: string
-    }>(REFRESH_URI)
+    const { data: { isSuccess, message, data: { accessToken: newAccessToken, refreshToken } } } = await instance.post<BaseResponse<JwtToken>>(REFRESH_URI)
+    if (!isSuccess) throw new Error(message)
+
+    sessionStorage.setItem("accessToken", newAccessToken)
+    sessionStorage.setItem("refreshToken", refreshToken)
 
     originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
     authentication.setAccessToken(newAccessToken)
     return axios(originalRequest)
   } catch (error) {
+    console.error(error)
     authentication.clearAuthentication()
     throw new Error("인증 과정에서 에러가 발생하였습니다.")
   }
-
-  return Promise.reject(error)
 })
+
+export interface BaseResponse<T> {
+  isSuccess: boolean,
+  code: number,
+  message: string,
+  data: T,
+  errors: object[]
+}
 
 export default instance;

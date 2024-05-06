@@ -1,7 +1,27 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import CommonHeader from '@/components/common/CommonHeader.vue'
-import Toaster from '@/components/ui/toast/Toaster.vue'
+import { RouterView } from "vue-router";
+import CommonHeader from "@/components/common/CommonHeader.vue";
+import Toaster from "@/components/ui/toast/Toaster.vue";
+import { useAuthenticationStore } from "@/stores/authentication";
+import { storeToRefs } from "pinia";
+import { userDataRequest } from "@/api/user";
+import { useCookies } from "vue3-cookies";
+import { refreshRequest } from "./api/auth";
+
+const { cookies } = useCookies();
+const authenticationStore = useAuthenticationStore();
+const { isLogin } = storeToRefs(authenticationStore);
+
+if (cookies.isKey("refreshToken") && !isLogin.value) {
+  if (sessionStorage.getItem("accessToken")) {
+    authenticationStore.setAccessToken(sessionStorage.getItem("accessToken")!);
+    userDataRequest();
+  } else {
+    refreshRequest().then(() => {
+      userDataRequest();
+    });
+  }
+}
 </script>
 
 <template>

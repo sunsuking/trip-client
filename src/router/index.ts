@@ -10,24 +10,34 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/boards',
-      name: 'boards',
-      component: () => import('@/views/BoardView.vue')
+      path: '/sign-in',
+      name: 'sign-in',
+      component: () => import('@/views/SignInView.vue')
+    },
+    {
+      path: '/community',
+      name: 'community',
+      component: () => import('@/views/CommunityView.vue')
     },
     {
       path: '/path',
       name: 'path',
-      component: () => import('@/views/BoardView.vue')
+      component: () => import('@/views/CommunityView.vue')
     },
     {
       path: '/trip',
       name: 'trip',
-      component: () => import('@/views/BoardView.vue')
+      component: () => import('@/views/CommunityView.vue')
     },
     {
       path: '/blog',
       name: 'blog',
-      component: () => import('@/views/BoardView.vue')
+      component: () => import('@/views/CommunityView.vue')
+    },
+    {
+      path: "/oauth2/redirect",
+      name: "oauth2-redirect",
+      component: () => import('@/views/OAuthRedirectView.vue')
     }
   ]
 })
