@@ -8,11 +8,10 @@ import { userDataRequest } from "@/api/user";
 import { useCookies } from "vue3-cookies";
 import { refreshRequest } from "./api/auth";
 
-const { cookies } = useCookies();
 const authenticationStore = useAuthenticationStore();
 const { isLogin } = storeToRefs(authenticationStore);
 
-if (cookies.isKey("refreshToken") && !isLogin.value) {
+if (!isLogin.value) {
   if (sessionStorage.getItem("accessToken")) {
     authenticationStore.setAccessToken(sessionStorage.getItem("accessToken")!);
     userDataRequest();

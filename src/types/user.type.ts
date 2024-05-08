@@ -1,3 +1,8 @@
+export interface AUthentication {
+  isLogin: boolean;
+  profile?: Profile;
+}
+
 export interface Profile {
   id: number
   username: string

@@ -34,8 +34,9 @@ export const emailConfirmRequest = async (confirm: EmailConfirmForm) => {
 }
 
 export const signOutRequest = async () => {
-  const { data: { isSuccess, message } } = await client.delete<BaseResponse<void>>(`/auth/sign-out`)
-  if (!isSuccess) throw new Error(message)
+  await client.delete<BaseResponse<void>>(`/auth/sign-out`)
+  sessionStorage.removeItem("accessToken")
+  sessionStorage.removeItem("refreshToken")
 }
 
 export const refreshRequest = async () => {

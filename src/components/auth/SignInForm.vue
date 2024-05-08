@@ -24,6 +24,7 @@ import { useAuthenticationStore } from "@/stores/authentication";
 import { storeToRefs } from "pinia";
 import { RouterLink, useRouter } from "vue-router";
 import { GITHUB_LOGIN_URL, GOOGLE_LOGIN_URL, KAKAO_LOGIN_URL, NAVER_LOGIN_URL } from "@/api/client";
+import { userDataRequest } from "@/api/user";
 
 // 이미 로그인 되어있는 유저라면 바로 홈으로 이동
 const authentication = useAuthenticationStore()
@@ -50,7 +51,9 @@ const {mutate, isPending: isLoading} = useMutation({
       description: '환영합니다!',
       duration: 2000,
     })
-    router.replace({ name: 'home' })
+    userDataRequest().then(() => {
+      router.replace({ name: 'home' })
+    })
   },
   onError: (error: any) => {
     console.log("로그인 성공")
