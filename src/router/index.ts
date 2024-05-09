@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: '/trip',
       name: 'trip',
-      component: () => import('@/views/CommunityView.vue')
+      component: () => import('@/views/TripView.vue')
     },
     {
       path: '/blog',
