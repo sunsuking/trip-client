@@ -40,8 +40,8 @@ const ROUTES: { pathname: string; name: string }[] = [
     name: "커뮤니티",
   },
   {
-    pathname: "path",
-    name: "경로추천",
+    pathname: "notice",
+    name: "공지사항",
   },
   {
     pathname: "trip",

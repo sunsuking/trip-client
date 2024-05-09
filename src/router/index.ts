@@ -20,9 +20,9 @@ const router = createRouter({
       component: () => import('@/views/CommunityView.vue')
     },
     {
-      path: '/path',
-      name: 'path',
-      component: () => import('@/views/CommunityView.vue')
+      path: '/notice',
+      name: 'notice',
+      component: () => import('@/views/NoticeView.vue')
     },
     {
       path: '/trip',

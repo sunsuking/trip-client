@@ -40,7 +40,7 @@ const verticalScrollRight = () => {
 </script>
 
 <template>
-  <div class="container flex flex-col my-6 items-start">
+  <div class="container justify-center flex flex-col my-6 items-start">
     <div class="flex flex-col my-6 items-start w-full">
       <h2 class="text-4xl font-bold mb-3">다모임</h2>
       <span class="text-gray-400 dark:text-gray-500"
