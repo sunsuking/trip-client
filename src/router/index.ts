@@ -30,18 +30,28 @@ const router = createRouter({
       component: () => import('@/views/CommunityView.vue')
     },
     {
-      path: '/blog',
-      name: 'blog',
-      component: () => import('@/views/CommunityView.vue')
+      path: '/review',
+      name: 'review',
+      component: () => import('@/views/ReviewView.vue')
     },
     {
-      path: "/oauth2/redirect",
-      name: "oauth2-redirect",
+      path: '/reviewDetail/:id',
+      name: 'reviewDetail',
+      component: () => import('@/components/review/ReviewDetail.vue')
+    },
+    {
+      path: '/reviewWrite',
+      name: 'reviewWrite',
+      component: () => import('@/components/review/ReviewWrite.vue')
+    },
+    {
+      path: '/oauth2/redirect',
+      name: 'oauth2-redirect',
       component: () => import('@/callback/OAuthRedirect.vue')
     },
     {
-      path: "/confirm/email",
-      name: "confirm-email",
+      path: '/confirm/email',
+      name: 'confirm-email',
       component: () => import('@/callback/ConfirmEmail.vue')
     }
   ]
