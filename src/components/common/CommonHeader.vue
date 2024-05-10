@@ -1,10 +1,7 @@
 <script setup lang="ts">
+import { signOutRequest } from "@/api/auth";
 import HomeNavigator from "@/components/common/HomeNavigator.vue";
-import { useAuthenticationStore } from "@/stores/authentication";
-import { storeToRefs } from "pinia";
-import { RouterLink, useRouter } from "vue-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOut, Settings, User } from "lucide-vue-next";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuthenticationStore } from "@/stores/authentication";
 import { useMutation } from "@tanstack/vue-query";
-import { signOutRequest } from "@/api/auth";
+import { LogOut, Settings, User } from "lucide-vue-next";
+import { storeToRefs } from "pinia";
+import { RouterLink, useRouter } from "vue-router";
 
 const authentication = useAuthenticationStore();
 
@@ -54,8 +54,8 @@ const ROUTES: { pathname: string; name: string }[] = [
     name: "여행지 추천",
   },
   {
-    pathname: "blog",
-    name: "블로그",
+    pathname: "review",
+    name: "여행지 후기",
   },
 ];
 const authenticationStore = useAuthenticationStore();
