@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/notice',
       name: 'notice',
-      component: () => import('@/views/NoticeView.vue')
+      component: () => import('@/views/notice/NoticeListView.vue')
     },
     {
       path: '/trip',
@@ -35,14 +35,29 @@ const router = createRouter({
       component: () => import('@/views/CommunityView.vue')
     },
     {
-      path: "/oauth2/redirect",
-      name: "oauth2-redirect",
+      path: '/oauth2/redirect',
+      name: 'oauth2-redirect',
       component: () => import('@/callback/OAuthRedirect.vue')
     },
     {
-      path: "/confirm/email",
-      name: "confirm-email",
+      path: '/confirm/email',
+      name: 'confirm-email',
       component: () => import('@/callback/ConfirmEmail.vue')
+    },
+    {
+      path: '/notice/view/:noticeId',
+      name: 'notice-view',
+      component: () => import('@/views/notice/NoticeDetailView.vue')
+    },
+    {
+      path: '/notice/modify/:noticeId',
+      name: 'notice-modify',
+      component: () => import('@/views/notice/NoticeUpdateView.vue')
+    },
+    {
+      path: '/notice/create/',
+      name: 'notice-create',
+      component: () => import('@/views/notice/NoticeCreateView.vue')
     }
   ]
 })

@@ -38,20 +38,8 @@ const goHome = () => {
   router.push({ name: 'notice' })
 }
 
-const createAddr = `http://localhost:8080/api/v1/notice/create`
-const createNotice = () => {
-  axios
-    .post(createAddr, {
-      title: notice.value.title,
-      content: notice.value.content
-    })
-    .then((response) => {
-      console.log('등록 성공')
-      router.push({ name: 'notice' })
-    })
-    .catch((error) => {
-      console.log('등록 실패', error)
-    })
+const goUpdate = () => {
+  router.push({ name: 'notice-modify' })
 }
 </script>
 
@@ -59,7 +47,7 @@ const createNotice = () => {
   <div class="flex items-center justify-center h-screen">
     <Card class="w-[600px] h-[500px]">
       <CardHeader>
-        <CardTitle>공지사항 등록</CardTitle>
+        <CardTitle>공지사항 상세보기</CardTitle>
         <CardDescription>글 작성자 : Admin</CardDescription>
       </CardHeader>
       <CardContent>
@@ -67,20 +55,10 @@ const createNotice = () => {
           <div class="grid items-center w-full gap-4">
             <div class="flex flex-col space-y-1.5">
               <Label for="name">제목</Label>
-              <Input
-                class="h-[70px] p-2"
-                id="name"
-                placeholder="제목을 입력해주세요."
-                v-model="notice.title"
-              />
+              <Card class="h-[70px] p-2">{{ notice.title }}</Card>
             </div>
             <Label for="name">내용</Label>
-            <Input
-              class="h-[150px]"
-              id="name"
-              placeholder="내용을 입력해주세요."
-              v-model="notice.content"
-            />
+            <Card class="h-[150px] p-2">{{ notice.content }}</Card>
             <div class="flex flex-col space-y-1.5">
               <Label for="framework">#공지사항</Label>
             </div>
@@ -89,7 +67,7 @@ const createNotice = () => {
       </CardContent>
       <CardFooter class="flex justify-between px-6 pb-6">
         <Button variant="outline" @click="goHome"> 목록으로 </Button>
-        <Button @click="createNotice">글 작성하기</Button>
+        <Button @click="goUpdate">글 수정</Button>
       </CardFooter>
     </Card>
   </div>
