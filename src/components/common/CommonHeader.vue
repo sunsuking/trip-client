@@ -1,16 +1,11 @@
 <script setup lang="ts">
-<<<<<<< HEAD
 import HomeNavigator from '@/components/common/HomeNavigator.vue'
 import { useAuthenticationStore } from '@/stores/authentication'
 import { storeToRefs } from 'pinia'
 import { RouterLink, useRouter } from 'vue-router'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { LogOut, Settings, User } from 'lucide-vue-next'
-=======
-import { signOutRequest } from "@/api/auth";
-import HomeNavigator from "@/components/common/HomeNavigator.vue";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
->>>>>>> 7c4fd7164bb06d2fdacd50b9f8e57cc03edd4315
+import { signOutRequest } from '@/api/auth'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,20 +13,9 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-<<<<<<< HEAD
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { useMutation } from '@tanstack/vue-query'
-import { signOutRequest } from '@/api/auth'
-=======
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useAuthenticationStore } from "@/stores/authentication";
-import { useMutation } from "@tanstack/vue-query";
-import { LogOut, Settings, User } from "lucide-vue-next";
-import { storeToRefs } from "pinia";
-import { RouterLink, useRouter } from "vue-router";
->>>>>>> 7c4fd7164bb06d2fdacd50b9f8e57cc03edd4315
 
 const authentication = useAuthenticationStore()
 
@@ -48,17 +32,7 @@ const { mutate } = useMutation({
   }
 })
 
-<<<<<<< HEAD
-const hiddenRoute = ['sign-in', 'sign-up', 'oauth2-redirect', 'confirm-email']
-=======
-const hiddenRoute = [
-  "sign-in",
-  "sign-up",
-  "oauth2-redirect",
-  "confirm-email",
-  "planning",
-];
->>>>>>> 7c4fd7164bb06d2fdacd50b9f8e57cc03edd4315
+const hiddenRoute = ['sign-in', 'sign-up', 'oauth2-redirect', 'confirm-email', 'planning']
 
 const ROUTES: { pathname: string; name: string }[] = [
   {
@@ -74,21 +48,13 @@ const ROUTES: { pathname: string; name: string }[] = [
     name: '여행지 추천'
   },
   {
-<<<<<<< HEAD
-    pathname: 'blog',
-    name: '블로그'
+    pathname: 'review',
+    name: '여행지 후기'
   }
 ]
+
 const authenticationStore = useAuthenticationStore()
 const { isLogin, profile } = storeToRefs(authenticationStore)
-=======
-    pathname: "review",
-    name: "여행지 후기",
-  },
-];
-const authenticationStore = useAuthenticationStore();
-const { isLogin, profile } = storeToRefs(authenticationStore);
->>>>>>> 7c4fd7164bb06d2fdacd50b9f8e57cc03edd4315
 </script>
 
 <template>

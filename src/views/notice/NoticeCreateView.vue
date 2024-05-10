@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import NoticeCreate from '@/components/notice/NoticeCreate.vue'
 </script>
 
