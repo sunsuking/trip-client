@@ -15,9 +15,9 @@ const router = createRouter({
       component: () => import('@/views/SignInView.vue')
     },
     {
-      path: '/community',
-      name: 'community',
-      component: () => import('@/views/CommunityView.vue')
+      path: '/social',
+      name: 'social',
+      component: () => import('@/views/social/SocialView.vue')
     },
     {
       path: '/notice',

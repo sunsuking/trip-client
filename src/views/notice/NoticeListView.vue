@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BoardList from '@/components/community/BoardList.vue'
-import CommunityBox from '@/components/community/CommunityBox.vue'
+import BoardList from '@/components/social/BoardList.vue'
+import SocialBox from '@/components/social/SocialBox.vue'
 import Pagination from '@/components/common/Pagination.vue'
 import type { BoardListProps } from '@/types/board.type'
 import {
@@ -73,7 +73,7 @@ const goCreateNotice = () => {
           class="w-full flex flex-row gap-3 overflow-scroll scrollbar-hide scroll-smooth"
           ref="verticalScroll"
         >
-          <CommunityBox v-for="meeting in meetings" />
+          <SocialBox v-for="meeting in meetings" />
         </div>
         <i
           class="pi pi-angle-right text-2xl pl-4 h-32 cursor-pointer flex items-center"
