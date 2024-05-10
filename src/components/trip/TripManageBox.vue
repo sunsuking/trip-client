@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
+import { imageOrDefault } from "@/lib/image-load";
 import { useTripPlanStore } from "@/stores/trip-plan";
+import { X } from "lucide-vue-next";
 import { storeToRefs } from "pinia";
 import { VueDraggableNext } from "vue-draggable-next";
 
+const { removeTrip } = useTripPlanStore();
 const { pickedTrips, day, dailyTrip } = storeToRefs(useTripPlanStore());
 
 const days = Array.from({ length: day.value }, (_, i) => `${i + 1}일차`);
@@ -55,7 +58,7 @@ const onSubmit = () => {
             <Card className="flex justify-between items-center cursor-pointer">
               <div class="flex w-12 h-12 aspect-square">
                 <img
-                  :src="trip.backgroundImage ?? 'http://via.placeholder.com/400x400'"
+                  :src="imageOrDefault(trip.backgroundImage)"
                   alt="avatar"
                   class="w-full h-full rounded-md object-cover"
                 />
@@ -75,6 +78,8 @@ const onSubmit = () => {
                   <span>{{ trip.address }}</span>
                 </div>
               </div>
+
+              <X :size="18" @click="() => removeTrip(index, trip.tourId)" />
             </Card>
           </div>
         </VueDraggableNext>

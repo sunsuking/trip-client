@@ -56,6 +56,11 @@ export const useTripPlanStore = defineStore("trip-plan", () => {
         tourIds.value = [...tourIds.value, trip.tourId];
     }
 
+    const removeTrip = (day: number, tourId: number) => {
+        pickedTrips.value[day] = pickedTrips.value[day].filter((trip) => trip.tourId !== tourId);
+        tourIds.value = tourIds.value.filter((id) => id !== tourId);
+    }
+
     return {
         pickedTrips,
         coordinates,
@@ -63,6 +68,7 @@ export const useTripPlanStore = defineStore("trip-plan", () => {
         dailyTrip,
         centercoordinate,
         addTrip,
+        removeTrip,
         exists
     };
 });

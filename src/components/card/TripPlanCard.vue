@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/toast";
+import { imageOrDefault } from "@/lib/image-load";
 import { useTripPlanStore } from "@/stores/trip-plan";
 import type { SearchTrip } from "@/types/trip.type";
 import { useImage } from "@vueuse/core";
@@ -11,8 +12,7 @@ import { Heart, Locate, Star } from "lucide-vue-next";
 const props = defineProps<{
   trip: SearchTrip;
 }>();
-const backgroundImage =
-  props.trip.backgroundImage ?? "http://via.placeholder.com/400x400";
+const backgroundImage = imageOrDefault(props.trip.backgroundImage);
 const { isLoading } = useImage({ src: backgroundImage });
 
 const { addTrip, exists } = useTripPlanStore();

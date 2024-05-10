@@ -27,7 +27,7 @@ const { coordinates, centercoordinate } = storeToRefs(useTripPlanStore());
 
 watch(centercoordinate, (center) => {
   if (map.value && center) {
-    map.value.setBounds(center);
+    // map.value.setBounds(center);
   }
 });
 
@@ -48,6 +48,7 @@ const { mutate, isPending: isTripLoading } = useMutation({
 });
 
 const onSubmit = () => {
+  trips.value = [];
   mutate({ query: searchKeyword.value, city: "서울" });
 };
 </script>
@@ -110,11 +111,29 @@ const onSubmit = () => {
               <TripPlanCard v-for="trip in trips" :key="trip.tourId" :trip="trip" />
               <div class="min-h-[300px] block"></div>
             </div>
-            <div
-              v-else
-              class="flex flex-grow flex-col items-center justify-center h-full"
-            >
-              <span class="text-sm text-gray-400"
+            <div v-else class="flex flex-grow h-[500px] items-center justify-center">
+              <div v-if="isTripLoading" class="flex flex-col space-y-10">
+                <div
+                  v-for="i in [1, 2, 3, 4, 5]"
+                  :key="i"
+                  class="flex items-center space-x-4 bg-white"
+                >
+                  <Skeleton class="w-16 h-16 rounded-md" />
+                  <div class="flex-1 space-y-2">
+                    <Skeleton class="h-4 w-3/4" />
+                    <Skeleton class="h-4 w-5/6" />
+                    <div class="flex items-center space-x-4">
+                      <Skeleton class="h-4 w-12" />
+                      <Skeleton class="h-4 w-12" />
+                      <Skeleton class="h-4 w-12" />
+                    </div>
+                  </div>
+                  <Skeleton class="h-6 w-6 rounded-full" />
+                </div>
+              </div>
+              <span
+                v-else
+                class="text-sm h-full flex-grow text-gray-400 flex items-center justify-center"
                 >조회된 게시글이 없습니다. 다시 검색해주세요.</span
               >
             </div>
