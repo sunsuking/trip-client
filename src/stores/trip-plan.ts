@@ -1,6 +1,7 @@
+import { calculateSum } from "@/lib/distance";
 import type { SearchTrip } from "@/types/trip.type";
 import { defineStore } from "pinia";
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 
 export const useTripPlanStore = defineStore("trip-plan", () => {
     const pickedTrips = ref<SearchTrip[][]>([[], [], []]);
@@ -15,15 +16,28 @@ export const useTripPlanStore = defineStore("trip-plan", () => {
             });
         }).reduce((array, trips) => [...array, ...trips], []);
     })
+
     const centercoordinate = computed(() => {
         if (coordinates.value.length === 0) return;
-        const bounds = new kakao.maps.LatLngBounds();
+        const bounds = new window.kakao.maps.LatLngBounds();
         coordinates.value.forEach((coordinate) => {
-            bounds.extend(new kakao.maps.LatLng(coordinate.latitude, coordinate.longitude));
+            bounds.extend(new window.kakao.maps.LatLng(coordinate.latitude, coordinate.longitude));
         });
         return bounds;
     });
 
+    const dailyTrip = computed<{
+        count: number
+        distance: number
+    }[]>(() => {
+        return pickedTrips.value.map((trips) => ({
+            count: trips.length,
+            distance: calculateSum(trips.map((trip) => ({
+                latitude: trip.latitude,
+                longitude: trip.longitude,
+            })))
+        }))
+    })
 
     const day = ref<number>(3);
 
@@ -46,6 +60,7 @@ export const useTripPlanStore = defineStore("trip-plan", () => {
         pickedTrips,
         coordinates,
         day,
+        dailyTrip,
         centercoordinate,
         addTrip,
         exists

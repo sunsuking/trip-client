@@ -28,8 +28,8 @@ export interface TripCategory {
 export interface SearchQuery {
   city: string
   query: string
-  page: number
-  limit: number
+  // page: number
+  // limit: number
 }
 
 export interface SearchTrip {

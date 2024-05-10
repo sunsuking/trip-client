@@ -6,13 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { useTripPlanStore } from '@/stores/trip-plan';
-import type { SearchQuery, SearchTrip } from '@/types/trip.type';
+import { useTripPlanStore } from "@/stores/trip-plan";
+import type { SearchQuery, SearchTrip } from "@/types/trip.type";
 import { useMutation, useQuery } from "@tanstack/vue-query";
 import { Search } from "lucide-vue-next";
-import { storeToRefs } from 'pinia';
+import { storeToRefs } from "pinia";
 import { ref, watch } from "vue";
-import { KakaoMap, KakaoMapMarker  } from "vue3-kakao-maps";
+import { KakaoMap, KakaoMapMarker } from "vue3-kakao-maps";
 
 const map = ref<kakao.maps.Map>();
 
@@ -26,15 +26,14 @@ const searchKeyword = ref("");
 const { coordinates, centercoordinate } = storeToRefs(useTripPlanStore());
 
 watch(centercoordinate, (center) => {
-  if (map.value) {
-    map.value.setBounds(center)
+  if (map.value && center) {
+    map.value.setBounds(center);
   }
 });
 
 const { data: categories, isLoading: isCategoryLoading } = useQuery({
   queryKey: ["categories"],
   queryFn: categoryRequest,
-  refetchInterval: 1000 * 60 * 60,
 });
 
 const { mutate, isPending: isTripLoading } = useMutation({
@@ -44,18 +43,17 @@ const { mutate, isPending: isTripLoading } = useMutation({
     trips.value = data;
   },
   onError: (error) => {
-    console.log(error)
+    console.log(error);
   },
 });
 
 const onSubmit = () => {
-  mutate({ query: searchKeyword.value, city: "", limit: 10, page: 1 });
+  mutate({ query: searchKeyword.value, city: "서울" });
 };
-
 </script>
 
 <template>
-  <div class="flex flex-row max-h-screen  h-screen overflow-hidden">
+  <div class="flex flex-row max-h-screen h-screen overflow-hidden">
     <div class="w-[400px] h-full flex flex-col px-3 py-5">
       <h2 class="text-black text-2xl font-bold">제주</h2>
       <span class="text-gray-400 text-md py-5">2024.05.10 ~ 2024.05.16</span>
@@ -85,9 +83,9 @@ const onSubmit = () => {
             <!-- 카테고리 선택창 -->
             <ToggleGroup
               type="multiple"
-              class="justify-start overflow-scroll scrollbar-hide"
+              class="justify-start overflow-scroll my-2 py-2 scrollbar-hide"
               v-model="categoryGroup"
-              v-if="isCategoryLoading"
+              v-if="!isCategoryLoading"
             >
               <ToggleGroupItem
                 variant="outline"
@@ -97,7 +95,7 @@ const onSubmit = () => {
                 ><span class="text-nowrap w-14 h-5">{{ category.korName }}</span>
               </ToggleGroupItem>
             </ToggleGroup>
-            <div v-else class="flex flex-row space-x-4 py-2">
+            <div v-else class="flex flex-row space-x-4 my-2">
               <Skeleton
                 v-for="i in [1, 2, 3, 4, 5]"
                 :key="i"
@@ -105,18 +103,40 @@ const onSubmit = () => {
               />
             </div>
 
-            <div class='flex flex-grow max-h-screen flex-col space-y-2 overflow-y-scroll scrollbar-hide'>
-              <TripPlanCard v-for="trip in trips" :key="trip.tourId" :trip='trip' />
-              <div class='min-h-[300px] block'></div>
+            <div
+              v-if="trips.length !== 0"
+              class="flex flex-grow max-h-screen flex-col space-y-2 overflow-y-scroll scrollbar-hide"
+            >
+              <TripPlanCard v-for="trip in trips" :key="trip.tourId" :trip="trip" />
+              <div class="min-h-[300px] block"></div>
             </div>
-
+            <div
+              v-else
+              class="flex flex-grow flex-col items-center justify-center h-full"
+            >
+              <span class="text-sm text-gray-400"
+                >조회된 게시글이 없습니다. 다시 검색해주세요.</span
+              >
+            </div>
           </div>
         </TabsContent>
         <TabsContent value="manage"> <TripManageBox /> </TabsContent>
       </Tabs>
     </div>
-    <KakaoMap ref='map' :width="'100vw'" :height="'100vh'" :lat="33.450701" :lng="126.570667" @on-load-kakao-map='onLoadKakaoMap' >
-      <KakaoMapMarker v-for='(coordinate, index) in coordinates' :key='index' :lat="coordinate.latitude" :lng="coordinate.longitude" />
+    <KakaoMap
+      ref="map"
+      :width="'100vw'"
+      :height="'100vh'"
+      :lat="33.450701"
+      :lng="126.570667"
+      @on-load-kakao-map="onLoadKakaoMap"
+    >
+      <KakaoMapMarker
+        v-for="(coordinate, index) in coordinates"
+        :key="index"
+        :lat="coordinate.latitude"
+        :lng="coordinate.longitude"
+      />
     </KakaoMap>
   </div>
 </template>
