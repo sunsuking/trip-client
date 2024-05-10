@@ -10,11 +10,31 @@ export interface INotice {
 }
 
 export interface IReview {
-  id: number
-  author: string
-  photoUrls: string[]
-  location: string
+  reviewId: number
+  authorId: string
   content: string
+  location: string
+  photoUrls: string[]
+}
+
+export interface ReviewDetail {
+  reviewId: number
+  title: string
+  content: string
+  authorName: string
+  authorEmail: string
+  tourId: number
+  createdAt: string
+  updatedAt: string
+  likeCount: number
+  imgUrls: string[]
+}
+
+export interface ReviewForm {
+  title: string
+  content: string
+  tourId: number
+  imgUrls: string[]
 }
 
 export interface ReviewCardProps {

@@ -2,6 +2,9 @@
   <div class="container">
     <!-- 리뷰 부분 -->
     <div class="grid grid-cols-1 gap-4 p-4">
+      <div class="flex flex-col my-6 items-start w-full">
+        <h2 class="text-4xl font-bold mb-3">여행지 후기</h2>
+      </div>
       <div class="rounded-lg overflow-hidden shadow-lg">
         <!-- 사진 -->
         <img
@@ -66,7 +69,7 @@
               <!-- 댓글 출력 창 종료 -->
             </div>
             <!-- 댓글 입력창 -->
-            <form class="flex items-start gap-2">
+            <form v-if="isLogin" class="flex items-start gap-2">
               <!-- 현재 로그인한 유저의 프로필 이미지 -->
               <Avatar>
                 <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
@@ -103,6 +106,11 @@ import { Heart, MessageCircle, Send, ArrowBigLeft } from 'lucide-vue-next'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import ReviewComment from '../review/ReviewComment.vue'
+import { useAuthenticationStore } from '@/stores/authentication'
+import { storeToRefs } from 'pinia'
+
+const authenticationStore = useAuthenticationStore()
+const { isLogin } = storeToRefs(authenticationStore)
 const route = useRouter()
 let id = 0
 const review = ref({
