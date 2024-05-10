@@ -22,7 +22,7 @@ const router = createRouter({
     {
       path: '/notice',
       name: 'notice',
-      component: () => import('@/views/NoticeView.vue')
+      component: () => import('@/views/notice/NoticeListView.vue')
     },
     {
       path: '/trip',
@@ -55,8 +55,23 @@ const router = createRouter({
       component: () => import('@/callback/ConfirmEmail.vue')
     },
     {
-      path: "/planning",
-      name: "planning",
+      path: '/notice/view/:noticeId',
+      name: 'notice-view',
+      component: () => import('@/views/notice/NoticeDetailView.vue')
+    },
+    {
+      path: '/notice/modify/:noticeId',
+      name: 'notice-modify',
+      component: () => import('@/views/notice/NoticeUpdateView.vue')
+    },
+    {
+      path: '/notice/create/',
+      name: 'notice-create',
+      component: () => import('@/views/notice/NoticeCreateView.vue')
+    },
+    {
+      path: '/planning',
+      name: 'planning',
       component: () => import('@/views/PlanningView.vue')
     }
   ]
