@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/form'
 import { useAuthenticationStore } from "@/stores/authentication";
 import { storeToRefs } from "pinia";
-import { RouterLink, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import { GITHUB_LOGIN_URL, GOOGLE_LOGIN_URL, KAKAO_LOGIN_URL, NAVER_LOGIN_URL } from "@/api/client";
 import { userDataRequest } from "@/api/user";
 

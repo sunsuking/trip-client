@@ -55,7 +55,7 @@ const verticalScrollRight = () => {
           class="w-full flex flex-row gap-3 overflow-scroll scrollbar-hide scroll-smooth"
           ref="verticalScroll"
         >
-          <CommunityBox v-for="meeting in meetings" />
+          <CommunityBox v-for="meeting in meetings" :key='meeting'/>
         </div>
         <i
           class="pi pi-angle-right text-2xl pl-4 h-32 cursor-pointer flex items-center"

@@ -24,3 +24,21 @@ export interface TripCategory {
   name: string
   korName: string
 }
+
+export interface SearchQuery {
+  city: string
+  query: string
+  page: number
+  limit: number
+}
+
+export interface SearchTrip {
+  tourId: number;
+  contentType: string;
+  name: string;
+  address: string;
+  backgroundImage?: string;
+  description: string;
+  latitude: number;
+  longitude: number;
+}
