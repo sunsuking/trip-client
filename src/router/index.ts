@@ -43,6 +43,11 @@ const router = createRouter({
       path: "/confirm/email",
       name: "confirm-email",
       component: () => import('@/callback/ConfirmEmail.vue')
+    },
+    {
+      path: "/planning",
+      name: "planning",
+      component: () => import('@/views/PlanningView.vue')
     }
   ]
 })

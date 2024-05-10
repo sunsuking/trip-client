@@ -32,7 +32,13 @@ const { mutate } = useMutation({
   },
 });
 
-const hiddenRoute = ["sign-in", "sign-up", "oauth2-redirect", "confirm-email"];
+const hiddenRoute = [
+  "sign-in",
+  "sign-up",
+  "oauth2-redirect",
+  "confirm-email",
+  "planning",
+];
 
 const ROUTES: { pathname: string; name: string }[] = [
   {

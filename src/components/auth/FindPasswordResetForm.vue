@@ -47,6 +47,7 @@ const { mutate: mutate, isPending: isLoading } = useMutation({
       title: "비밀번호 변경",
       description: "비밀번호가 변경되었습니다.",
       duration: 2000,
+      variant: "success",
     });
     emit("changeStatus", setSignIn);
   },
