@@ -21,6 +21,7 @@ const { mutate } = useMutation({
       title: "이메일 인증 성공",
       description: "이메일 인증에 성공했습니다. 로그인해주세요.",
       duration: 2000,
+      variant: "success",
     });
     router.push({ name: "sign-in" });
   },

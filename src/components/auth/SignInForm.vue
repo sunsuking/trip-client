@@ -50,6 +50,7 @@ const {mutate, isPending: isLoading} = useMutation({
       title: '로그인 성공',
       description: '환영합니다!',
       duration: 2000,
+      variant: 'success'
     })
     userDataRequest().then(() => {
       router.replace({ name: 'home' })

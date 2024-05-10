@@ -17,7 +17,7 @@ if (route.query.access_token) {
     title: isNew ? "회원가입 성공" : "로그인 실패",
     description: route.query.error as string,
     duration: 2000,
-    variant: isNew ? undefined : "destructive",
+    variant: isNew ? "success" : "destructive",
   });
   router.push({ name: "sign-in" });
 }

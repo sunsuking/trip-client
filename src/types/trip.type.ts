@@ -18,3 +18,9 @@ export interface PostingSummaryProps {
   createdAt: Date
   views: number
 }
+
+export interface TripCategory {
+  contentId: number
+  name: string
+  korName: string
+}

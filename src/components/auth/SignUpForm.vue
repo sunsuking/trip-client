@@ -41,6 +41,7 @@ const {mutate, isPending: isLoading} = useMutation({
       title: '회원가입 성공',
       description: '이메일 인증을 완료해주세요.',
       duration: 2000,
+      variant: 'success'
     })
     emit('changeStatus', setSignIn)
   },

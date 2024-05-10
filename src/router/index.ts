@@ -30,9 +30,19 @@ const router = createRouter({
       component: () => import('@/views/TripView.vue')
     },
     {
-      path: '/blog',
-      name: 'blog',
-      component: () => import('@/views/CommunityView.vue')
+      path: '/review',
+      name: 'review',
+      component: () => import('@/views/ReviewView.vue')
+    },
+    {
+      path: '/reviewDetail/:id',
+      name: 'reviewDetail',
+      component: () => import('@/components/review/ReviewDetail.vue')
+    },
+    {
+      path: '/reviewWrite',
+      name: 'reviewWrite',
+      component: () => import('@/components/review/ReviewWrite.vue')
     },
     {
       path: '/oauth2/redirect',
@@ -58,6 +68,11 @@ const router = createRouter({
       path: '/notice/create/',
       name: 'notice-create',
       component: () => import('@/views/notice/NoticeCreateView.vue')
+    },
+    {
+      path: '/planning',
+      name: 'planning',
+      component: () => import('@/views/PlanningView.vue')
     }
   ]
 })
