@@ -1,48 +1,42 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/toast";
-import { FormStatus, type SignInForm } from "@/types/auth.type";
-import { cn } from "@/lib/utils";
-import { LoaderCircle } from "lucide-vue-next";
-import { useMutation } from "@tanstack/vue-query";
-import { signInRequest } from "@/api/auth";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/toast'
+import { FormStatus, type SignInForm } from '@/types/auth.type'
+import { cn } from '@/lib/utils'
+import { LoaderCircle } from 'lucide-vue-next'
+import { useMutation } from '@tanstack/vue-query'
+import { signInRequest } from '@/api/auth'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import NaverLogo from "@/components/icons/NaverLogo.vue";
-import KakaoLogo from "@/components/icons/KakaoLogo.vue";
-import GoogleLogo from "@/components/icons/GoogleLogo.vue";
-import GithubLogo from "@/components/icons/GithubLogo.vue";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import { useAuthenticationStore } from "@/stores/authentication";
-import { storeToRefs } from "pinia";
-import { RouterLink, useRouter } from "vue-router";
-import { GITHUB_LOGIN_URL, GOOGLE_LOGIN_URL, KAKAO_LOGIN_URL, NAVER_LOGIN_URL } from "@/api/client";
-import { userDataRequest } from "@/api/user";
+import NaverLogo from '@/components/icons/NaverLogo.vue'
+import KakaoLogo from '@/components/icons/KakaoLogo.vue'
+import GoogleLogo from '@/components/icons/GoogleLogo.vue'
+import GithubLogo from '@/components/icons/GithubLogo.vue'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useAuthenticationStore } from '@/stores/authentication'
+import { storeToRefs } from 'pinia'
+import { RouterLink, useRouter } from 'vue-router'
+import { GITHUB_LOGIN_URL, GOOGLE_LOGIN_URL, KAKAO_LOGIN_URL, NAVER_LOGIN_URL } from '@/api/client'
+import { userDataRequest } from '@/api/user'
 
 // 이미 로그인 되어있는 유저라면 바로 홈으로 이동
 const authentication = useAuthenticationStore()
-const {isLogin} = storeToRefs(authentication);
+const { isLogin } = storeToRefs(authentication)
 
-const router = useRouter();
+const router = useRouter()
 
 if (isLogin.value) {
   router.push({ name: 'home' })
 }
 
-const emit = defineEmits(["changeStatus"]);
-const setFindPassword = FormStatus.FIND_PASSWORD;
-const setSignUp = FormStatus.SIGN_UP;
+const emit = defineEmits(['changeStatus'])
+const setFindPassword = FormStatus.FIND_PASSWORD
+const setSignUp = FormStatus.SIGN_UP
 
-const toast = useToast();
+const toast = useToast()
 
-const {mutate, isPending: isLoading} = useMutation({
+const { mutate, isPending: isLoading } = useMutation({
   mutationKey: ['sign-in'],
   mutationFn: signInRequest,
   onSuccess: () => {
@@ -57,17 +51,20 @@ const {mutate, isPending: isLoading} = useMutation({
     })
   },
   onError: (error: any) => {
-    console.log("로그인 성공")
-    const { response: {data: { message }} } = error;
+    const {
+      response: {
+        data: { message }
+      }
+    } = error
 
     toast.toast({
       title: '로그인 실패',
       description: message,
       duration: 2000,
-      variant: "destructive"
+      variant: 'destructive'
     })
   }
-});
+})
 
 const formSchema = yup.object({
   username: yup.string().required().email(),
@@ -80,7 +77,7 @@ const { handleSubmit } = useForm<SignInForm>({
 
 const onSubmit = handleSubmit((values) => {
   // 로그인 추가 로직 작성
-  mutate(values);
+  mutate(values)
 })
 </script>
 
@@ -139,9 +136,7 @@ const onSubmit = handleSubmit((values) => {
         <span class="w-full border-t" />
       </div>
       <div class="relative flex justify-center text-xs uppercase">
-        <span class="bg-background px-2 text-muted-foreground">
-          소셜 로그인으로 로그인하기
-        </span>
+        <span class="bg-background px-2 text-muted-foreground"> 소셜 로그인으로 로그인하기 </span>
       </div>
     </div>
     <div class="grid grid-cols-2 gap-2">

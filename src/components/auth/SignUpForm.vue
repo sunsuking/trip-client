@@ -1,39 +1,33 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/toast";
-import { FormStatus, type SignUpForm } from "@/types/auth.type";
-import { cn } from "@/lib/utils";
-import { LoaderCircle } from "lucide-vue-next";
-import { useMutation } from "@tanstack/vue-query";
-import { signUpRequest } from "@/api/auth";
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/toast'
+import { FormStatus, type SignUpForm } from '@/types/auth.type'
+import { cn } from '@/lib/utils'
+import { LoaderCircle } from 'lucide-vue-next'
+import { useMutation } from '@tanstack/vue-query'
+import { signUpRequest } from '@/api/auth'
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/components/ui/form'
-import router from "@/router";
-import { useAuthenticationStore } from "@/stores/authentication";
-import { storeToRefs } from "pinia";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import router from '@/router'
+import { useAuthenticationStore } from '@/stores/authentication'
+import { storeToRefs } from 'pinia'
 
 // 이미 로그인 되어있는 유저라면 바로 홈으로 이동
 const authentication = useAuthenticationStore()
-const {isLogin} = storeToRefs(authentication);
+const { isLogin } = storeToRefs(authentication)
 
 if (isLogin.value) {
   router.push({ name: 'home' })
 }
 
-const emit = defineEmits(["changeStatus"]);
-const setSignIn = FormStatus.SIGN_IN;
+const emit = defineEmits(['changeStatus'])
+const setSignIn = FormStatus.SIGN_IN
 
-const toast = useToast();
+const toast = useToast()
 
-const {mutate, isPending: isLoading} = useMutation({
+const { mutate, isPending: isLoading } = useMutation({
   mutationKey: ['sign-up'],
   mutationFn: signUpRequest,
   onSuccess: () => {
@@ -46,22 +40,35 @@ const {mutate, isPending: isLoading} = useMutation({
     emit('changeStatus', setSignIn)
   },
   onError: (error: any) => {
-    const { response: {data: { message }} } = error;
+    const {
+      response: {
+        data: { message }
+      }
+    } = error
     toast.toast({
       title: '회원가입 실패',
       description: message,
       duration: 2000,
-      variant: "destructive"
+      variant: 'destructive'
     })
   }
-});
+})
 
 const formSchema = yup.object({
   username: yup.string().required().email(),
-  password: yup.string().required().matches(/^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}$/, '영문, 숫자를 포함한 8~16자 비밀번호를 입력해주세요.'),
-  passwordConfirm: yup.string().required().oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다.'),
+  password: yup
+    .string()
+    .required()
+    .matches(
+      /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}$/,
+      '영문, 숫자를 포함한 8~16자 비밀번호를 입력해주세요.'
+    ),
+  passwordConfirm: yup
+    .string()
+    .required()
+    .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다.'),
   nickname: yup.string().required(),
-  email: yup.string().required().email(),
+  email: yup.string().required().email()
 })
 
 const { handleSubmit, handleReset } = useForm<SignUpForm>({
@@ -69,8 +76,8 @@ const { handleSubmit, handleReset } = useForm<SignUpForm>({
 })
 
 const onSubmit = handleSubmit((values) => {
-  mutate(values);
-  handleReset();
+  mutate(values)
+  handleReset()
 })
 </script>
 
@@ -108,12 +115,7 @@ const onSubmit = handleSubmit((values) => {
         <FormItem>
           <FormLabel for="passwordConfirm">비밀번호 확인</FormLabel>
           <FormControl>
-            <Input
-              id="passwordConfirm"
-              type="password"
-              v-bind="componentField"
-              required
-            />
+            <Input id="passwordConfirm" type="password" v-bind="componentField" required />
           </FormControl>
           <FormMessage />
         </FormItem>
