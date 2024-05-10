@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { signOutRequest } from "@/api/auth";
-import HomeNavigator from "@/components/common/HomeNavigator.vue";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import HomeNavigator from '@/components/common/HomeNavigator.vue'
+import { useAuthenticationStore } from '@/stores/authentication'
+import { storeToRefs } from 'pinia'
+import { RouterLink, useRouter } from 'vue-router'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { LogOut, Settings, User } from 'lucide-vue-next'
+import { signOutRequest } from '@/api/auth'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,57 +13,48 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useAuthenticationStore } from "@/stores/authentication";
-import { useMutation } from "@tanstack/vue-query";
-import { LogOut, Settings, User } from "lucide-vue-next";
-import { storeToRefs } from "pinia";
-import { RouterLink, useRouter } from "vue-router";
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu'
+import { useMutation } from '@tanstack/vue-query'
 
-const authentication = useAuthenticationStore();
+const authentication = useAuthenticationStore()
 
-const router = useRouter();
+const router = useRouter()
 
 const { mutate } = useMutation({
-  mutationKey: ["sign-out"],
+  mutationKey: ['sign-out'],
   mutationFn: signOutRequest,
   onSuccess: () => {
-    authentication.clearAuthentication();
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("refreshToken");
-    router.go(0);
-  },
-});
+    authentication.clearAuthentication()
+    sessionStorage.removeItem('accessToken')
+    sessionStorage.removeItem('refreshToken')
+    router.go(0)
+  }
+})
 
-const hiddenRoute = [
-  "sign-in",
-  "sign-up",
-  "oauth2-redirect",
-  "confirm-email",
-  "planning",
-];
+const hiddenRoute = ['sign-in', 'sign-up', 'oauth2-redirect', 'confirm-email', 'planning']
 
 const ROUTES: { pathname: string; name: string }[] = [
   {
-    pathname: "community",
-    name: "커뮤니티",
+    pathname: 'community',
+    name: '커뮤니티'
   },
   {
-    pathname: "notice",
-    name: "공지사항",
+    pathname: 'notice',
+    name: '공지사항'
   },
   {
-    pathname: "trip",
-    name: "여행지 추천",
+    pathname: 'trip',
+    name: '여행지 추천'
   },
   {
-    pathname: "review",
-    name: "여행지 후기",
-  },
-];
-const authenticationStore = useAuthenticationStore();
-const { isLogin, profile } = storeToRefs(authenticationStore);
+    pathname: 'review',
+    name: '여행지 후기'
+  }
+]
+
+const authenticationStore = useAuthenticationStore()
+const { isLogin, profile } = storeToRefs(authenticationStore)
 </script>
 
 <template>
