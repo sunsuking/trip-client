@@ -5,7 +5,7 @@
       <img
         v-if="review.imgUrls.length > 0"
         :src="review.imgUrls[0]"
-        :alt="review.title"
+        :alt="review.nickname"
         width="400"
         height="500"
         class="w-full h-80 object-cover"
@@ -15,11 +15,13 @@
         <!-- 사용자 정보 -->
         <div class="flex items-center mb-2">
           <Avatar>
-            <AvatarImage src="https://github.com/radix-vue.png" alt="@radix-vue" />
+            <AvatarImage
+              :src="`https://api.multiavatar.com/user-${review.createdAt}.svg`"
+              alt="@radix-vue"
+            />
           </Avatar>
           <a class="font-semibold text-sm ms-3" href="#">
-            <span v-if="review.authorName">{{ review.authorName }}</span>
-            <span v-else>{{ review.authorEmail }}</span>
+            {{ review.nickname ?? 'AK47맞고사랑한성민이' }}
           </a>
           <span class="text-gray-400 dark:text-gray-500 ms-4">{{ review.tourId }}</span>
         </div>
@@ -54,7 +56,7 @@
 
 <script setup lang="ts">
 import { Heart, MessageCircle } from 'lucide-vue-next'
-import Avatar from '../ui/avatar/Avatar.vue'
+import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import type { ReviewDetail } from '@/types/board.type'
 
 const props = defineProps<{

@@ -19,19 +19,18 @@ export interface IReview {
 
 export interface ReviewDetail {
   reviewId: number
-  title: string
   content: string
-  authorName: string
-  authorEmail: string
   tourId: number
   createdAt: string
   updatedAt: string
   likeCount: number
   imgUrls: string[]
+  userId: number
+  nickname: string
+  profileImage: string
 }
 
 export interface ReviewForm {
-  title: string
   content: string
   tourId: number
   imgUrls: string[]

@@ -5,24 +5,6 @@
     </div>
     <div :class="cn('grid gap-6', $attrs.class ?? '')">
       <form @submit.prevent="write" class="space-y-4">
-        <FormField name="title">
-          <FormItem>
-            <FormLabel for="title">제목</FormLabel>
-            <FormControl>
-              <Input
-                v-model="review.title"
-                id="title"
-                placeholder="제목을 입력해주세요"
-                type="text"
-                auto-capitalize="none"
-                auto-complete="text"
-                auto-correct="off"
-                required
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        </FormField>
         <FormField name="content">
           <FormItem>
             <FormLabel for="content">내용</FormLabel>
@@ -86,15 +68,12 @@ import { reviewWriteRequest } from '@/api/review'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const review = ref<ReviewForm>({
-  title: '',
-  content: '',
-  tourId: 125266,
-  imgUrls: ['https://generated.vusercontent.net/placeholder.svg']
-})
-
 const router = useRouter()
 const toast = useToast()
+
+import { useQueryClient } from '@tanstack/vue-query'
+
+const queryClient = useQueryClient()
 const { mutate } = useMutation({
   mutationKey: ['review-write'],
   mutationFn: reviewWriteRequest,
@@ -105,6 +84,8 @@ const { mutate } = useMutation({
       duration: 2000,
       variant: 'success'
     })
+    queryClient.invalidateQueries(['review-list'])
+    router.push({ name: 'review' })
   },
   onError: (error: any) => {
     const {
@@ -121,9 +102,15 @@ const { mutate } = useMutation({
   }
 })
 
+const review = ref<ReviewForm>({
+  content: '',
+  tourId: 125266,
+  imgUrls: []
+})
+
 function write() {
+  review.value.imgUrls.push('https://api.multiavatar.com/user-' + review.value.content + '.svg')
   mutate(review.value)
-  router.push({ name: 'review' })
 }
 </script>
 
