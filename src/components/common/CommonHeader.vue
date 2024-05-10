@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import HomeNavigator from '@/components/common/HomeNavigator.vue'
-import { useAuthenticationStore } from '@/stores/authentication'
-import { storeToRefs } from 'pinia'
-import { RouterLink, useRouter } from 'vue-router'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { LogOut, Settings, User } from 'lucide-vue-next'
 import { signOutRequest } from '@/api/auth'
 import {
   DropdownMenu,
@@ -15,7 +11,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { useAuthenticationStore } from '@/stores/authentication'
 import { useMutation } from '@tanstack/vue-query'
+import { LogOut, Settings, User } from 'lucide-vue-next'
+import { storeToRefs } from 'pinia'
+import { RouterLink, useRouter } from 'vue-router'
 
 const authentication = useAuthenticationStore()
 
@@ -36,8 +36,8 @@ const hiddenRoute = ['sign-in', 'sign-up', 'oauth2-redirect', 'confirm-email', '
 
 const ROUTES: { pathname: string; name: string }[] = [
   {
-    pathname: 'community',
-    name: '커뮤니티'
+    pathname: 'social',
+    name: '소셜'
   },
   {
     pathname: 'notice',
@@ -52,7 +52,6 @@ const ROUTES: { pathname: string; name: string }[] = [
     name: '여행지 후기'
   }
 ]
-
 const authenticationStore = useAuthenticationStore()
 const { isLogin, profile } = storeToRefs(authenticationStore)
 </script>
