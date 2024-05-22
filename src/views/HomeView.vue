@@ -41,7 +41,7 @@ homeList()
     console.log('데이터 불러오기 실패', error)
   })
 
-const goTourDetail = (tour: Object) => {}
+const goTourDetail = (tourId: number) => {}
 
 const goReviewDetail = (reviewId: number) => {
   router.push({ name: 'review-detail', params: { id: reviewId } })
@@ -58,9 +58,6 @@ const goReviewDetail = (reviewId: number) => {
         >
           <div class="flex flex-col justify-center space-y-4">
             <div class="space-y-2">
-              <!-- <div class="inline-block rounded-lg bg-gray-100 px-3 py-1 text-sm dark:bg-gray-800">
-                모두의 여행지 추천 서비스
-              </div> -->
               <h2 class="mb-5 text-3xl font-bold tracking-tighter sm:text-5xl">
                 실시간 공동 여행계획 수립 서비스 : Cloud Trip
               </h2>
@@ -85,7 +82,6 @@ const goReviewDetail = (reviewId: number) => {
               </a>
             </div>
           </div>
-          <!-- src="http://tong.visitkorea.or.kr/cms2/website/74/3108474.jpg" -->
           <img
             src="/src/assets/img/notice_img1.jpg"
             width="550"
@@ -184,7 +180,7 @@ const goReviewDetail = (reviewId: number) => {
                   :description="topTour.description"
                   :rating="topTour.rating"
                   :location="topTour.cityName + ' ' + topTour.townName"
-                  @click="goTourDetail(topTour)"
+                  @click="goTourDetail(topTour.tourId)"
                   class="hover:scale-105 p-3"
                 >
                 </TripCard>
