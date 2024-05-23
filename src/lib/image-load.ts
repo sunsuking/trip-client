@@ -3,6 +3,7 @@ export const imageOrDefault = (src: string | undefined | null) => {
 }
 
 const cities: { id: number; name: string; image: string }[] = [
+  { id: 0, name: "전국", image: "/cities/junkok.png" },
   { id: 1, name: "서울", image: "/cities/seoul.jpg" },
   { id: 2, name: "인천", image: "/cities/incheon.jpg" },
   { id: 3, name: "대전", image: "/cities/daejeon.jpg" },
