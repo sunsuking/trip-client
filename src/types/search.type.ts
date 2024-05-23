@@ -1,24 +1,8 @@
 import type { IScheduleSearch } from '@/types/schedule.type'
+import type { IReview } from './board.type'
 
 export interface ISearch {
-  reviews: {
-    reviewId: number
-    user: {
-      userId: number
-      nickname: string
-      profileImage: string
-    }
-    isLiked: boolean
-    isFollowing: boolean
-    likeCount: number
-    images: string[]
-    content: string
-    tourId: number
-    tourName: string
-    address: string
-    createdAt: number
-    rating: number
-  }[]
+  reviews: IReview[]
   notices: {
     noticeId: number
     title: string
