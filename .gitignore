@@ -29,6 +29,5 @@ coverage
 
 *.tsbuildinfo
 .vscode
-.env
 .env.production
 .env.development

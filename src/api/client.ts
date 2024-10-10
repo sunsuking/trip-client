@@ -20,6 +20,7 @@ const instance = axios.create({
     Accept: 'application/json'
   }
 })
+
 const REFRESH_URI = `${BASE_URL}/auth/refresh`
 
 instance.interceptors.request.use(
